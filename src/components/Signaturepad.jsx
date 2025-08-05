@@ -6,6 +6,8 @@ const SignatureInput = ({ userId, value, onChange, onSaved }) => {
   const [isEmpty, setIsEmpty] = useState(true);
   const [signatureDataUrl, setSignatureDataUrl] = useState(value || null);
 
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+
   useEffect(() => {
     if (value && sigCanvasRef.current) {
       // Reset canvas dan gambar ulang dari data URL
@@ -31,7 +33,7 @@ const SignatureInput = ({ userId, value, onChange, onSaved }) => {
       if (onChange) onChange(dataUrl);
 
       try {
-        const res = await fetch("http://localhost:3000/signatures", {
+        const res = await fetch(`${API_BASE_URL}/signatures`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

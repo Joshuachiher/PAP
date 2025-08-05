@@ -44,15 +44,18 @@ export const FormProvider = ({ children }) => {
   const [signatureDataUrl, setSignatureDataUrl] = useState(null);
   const [recaptchaToken, setRecaptchaToken] = useState(null);
 
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/questions");
+        const res = await axios.get(`${API_BASE_URL}/questions`);
+        // kalau API balikan ada properti questions di data, pakai itu
         const data = Array.isArray(res.data.questions) ? res.data.questions : res.data;
 
         const questionsWithOptions = await Promise.all(
           data.map(async (q) => {
-            const optRes = await axios.get(`http://localhost:3000/question-options/question/${q.id}`);
+            const optRes = await axios.get(`${API_BASE_URL}/question-options/question/${q.id}`);
             return { ...q, options: optRes.data || [] };
           })
         );
@@ -70,7 +73,7 @@ export const FormProvider = ({ children }) => {
     };
 
     fetchQuestions();
-  }, []);
+  }, [API_BASE_URL]);
 
   return (
     <FormContext.Provider

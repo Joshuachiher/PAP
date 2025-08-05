@@ -25,6 +25,8 @@ const QuestionForm1 = () => {
   const userId = 1;
 
 
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+
 
   useEffect(() => {
     const fetchAllQuestions = async () => {
@@ -34,9 +36,7 @@ const QuestionForm1 = () => {
         let lastPage = 1;
 
         do {
-          const res = await axios.get("http://localhost:3000/questions", {
-            params: { page, limit: 10 },
-          });
+          const res = await axios.get(`${API_BASE_URL}/questions`, { params: { page, limit: 10 } });
 
           const { data, lastPage: lp } = res.data;
           lastPage = lp;
