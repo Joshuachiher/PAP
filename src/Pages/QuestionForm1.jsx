@@ -25,8 +25,7 @@ const QuestionForm1 = () => {
   const userId = 1;
 
 
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
   useEffect(() => {
     const fetchAllQuestions = async () => {

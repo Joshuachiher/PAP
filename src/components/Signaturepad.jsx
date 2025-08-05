@@ -6,7 +6,7 @@ const SignatureInput = ({ userId, value, onChange, onSaved }) => {
   const [isEmpty, setIsEmpty] = useState(true);
   const [signatureDataUrl, setSignatureDataUrl] = useState(value || null);
 
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
   useEffect(() => {
     if (value && sigCanvasRef.current) {
