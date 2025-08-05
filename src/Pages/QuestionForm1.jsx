@@ -65,19 +65,19 @@ const QuestionForm1 = () => {
   }, []);
 
   useEffect(() => {
-    const fetchSignatureQuestion = async () => {
-      try {
-        const res = await axios.get("http://localhost:3000/questions", {
-          params: { limit: 100 },
-        });
-        const sigQ = res.data.data.find(
-          (q) => q.questionType?.toLowerCase() === "signature"
-        );
-        setSignatureQuestion(sigQ);
-      } catch (error) {
-        console.error("Error fetching signature question:", error);
-      }
-    };
+   const fetchSignatureQuestion = async () => {
+  try {
+    const res = await axios.get(`${API_BASE_URL}/questions`, {
+      params: { limit: 100 },
+    });
+    const sigQ = res.data.data.find(
+      (q) => q.questionType?.toLowerCase() === "signature"
+    );
+    setSignatureQuestion(sigQ);
+  } catch (error) {
+    console.error("Error fetching signature question:", error);
+  }
+};
 
     fetchSignatureQuestion();
   }, []);
@@ -113,7 +113,7 @@ const QuestionForm1 = () => {
         answers: answersArray,
       };
 
-      const res = await axios.post("http://localhost:3000/form-submissions", payload);
+      const res = await axios.post(`${API_BASE_URL}/form-submissions`, payload);
       alert("Jawaban berhasil dikirim! ID: " + res.data.formSubmissionId);
     } catch (error) {
       alert("Gagal mengirim jawaban.");
